@@ -141,4 +141,21 @@ public class DefaultEventManagerTest
 
         assertEquals(2, specialListener.count);
     }
+
+    /**
+     * Task 3
+     */
+    @Test
+    public void testParentAndChildren(){
+        EventListenerMock eventListenerMock = new EventListenerMock(new Class[]{SimpleEvent.class});
+        EventListenerMock eventListenerMock2 = new EventListenerMock(new Class[]{SubEvent.class});
+
+        eventManager.registerListener("SimpleEvent", eventListenerMock);
+        eventManager.registerListener("SubEvent", eventListenerMock2);
+
+        eventManager.publishEvent(new SubEvent(this), true);
+
+        assertTrue(eventListenerMock.isCalled());
+        assertTrue(eventListenerMock2.isCalled());
+    }
 }

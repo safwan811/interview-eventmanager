@@ -11,6 +11,11 @@ public interface EventManager
     void publishEvent(InterviewEvent event);
 
     /**
+     * Overlaod original method, for Task 3 purpose
+     */
+    void publishEvent(InterviewEvent event, Boolean isTask3);
+
+    /**
      * Register a listener to receive InterviewEvents. If you register a listener with the
      * same key as an existing listener, the previous listener with that key will be unregistered.
      *

@@ -31,6 +31,28 @@ public class DefaultEventManager implements EventManager
         sendEventTo(event, calculateListeners(event.getClass()));
     }
 
+    public void publishEvent(InterviewEvent event, Boolean isTask3) {
+        if (event == null) {
+            System.err.println("Null event fired?");
+            return;
+        }
+
+        if(isTask3)
+            sendEventTo(event, calculateListeners(event.getClass(), !event.getClass().getSuperclass().equals(Object.class)));
+        else
+            sendEventTo(event, calculateListeners(event.getClass()));
+    }
+
+    private Collection calculateListeners(Class eventClass, boolean isChild)
+    {
+        List totalListener = (List) calculateListeners(eventClass);
+
+        if(isChild)
+            totalListener.addAll((List) listenersByClass.get(eventClass.getSuperclass()));
+
+        return totalListener;
+    }
+
     private Collection calculateListeners(Class eventClass)
     {
         List totalListener = listenersByClass.get(eventClass) != null ? (List) listenersByClass.get(eventClass) : new ArrayList();
