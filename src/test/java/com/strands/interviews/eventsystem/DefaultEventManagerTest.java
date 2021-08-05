@@ -126,4 +126,19 @@ public class DefaultEventManagerTest
         assertFalse(eventListenerMock.isCalled());
         assertTrue(eventListenerMock2.isCalled());
     }
+
+    /**
+     * Task 2
+     */
+    @Test
+    public void testSpecialListener(){
+        EventListenerMock specialListener = new EventListenerMock(new Class[]{});
+
+        eventManager.registerListener("SpecialListener", specialListener);
+
+        eventManager.publishEvent(new SubEvent(this));
+        eventManager.publishEvent(new SimpleEvent(this));
+
+        assertEquals(2, specialListener.count);
+    }
 }
