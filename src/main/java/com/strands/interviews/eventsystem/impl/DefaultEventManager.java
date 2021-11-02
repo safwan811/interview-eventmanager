@@ -37,6 +37,8 @@ public class DefaultEventManager implements EventManager
             return;
         }
 
+        System.out.println("Test");
+
         if(isTask3)
             sendEventTo(event, calculateListeners(event.getClass(), !event.getClass().getSuperclass().equals(Object.class)));
         else
